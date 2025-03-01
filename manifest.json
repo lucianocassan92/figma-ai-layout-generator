@@ -1,11 +1,11 @@
 {
   "name": "AI Layout Generator",
-  "id": "ai-layout-generator",
+  "id": "1234567890",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
   "editorType": ["figma"],
   "networkAccess": {
-    "allowedDomains": ["api.openai.com"]
+    "allowedDomains": ["figma-ai-layout-generator-server-etd977a73.vercel.app"]
   }
 } 

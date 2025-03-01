@@ -9,6 +9,8 @@ node_modules/
 
 # Build output
 dist/
+*.js
+!ui.js
 
 # Logs
 logs/
@@ -23,4 +25,7 @@ npm-debug.log*
 
 # OS files
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Vercel
+.vercel

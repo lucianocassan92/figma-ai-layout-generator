@@ -5,7 +5,8 @@
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "watch": "tsc -p tsconfig.json --watch"
+    "watch": "tsc -p tsconfig.json --watch",
+    "build:api": "tsc -p api/tsconfig.json"
   },
   "keywords": [
     "figma",
@@ -17,9 +18,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@figma/plugin-typings": "^1.108.0",
+    "@figma/plugin-typings": "^1.82.0",
     "@types/node": "^20.11.0",
-    "typescript": "^5.8.2"
+    "@vercel/node": "^3.0.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "openai": "^4.28.0"

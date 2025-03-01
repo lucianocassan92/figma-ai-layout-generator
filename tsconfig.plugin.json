@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "strict": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@figma"],
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true
+  },
+  "files": ["code.ts"]
+} 

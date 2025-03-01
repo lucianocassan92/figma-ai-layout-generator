@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6", "dom"],
-    "strict": true,
+    "target": "es2017",
+    "lib": ["es2017", "dom"],
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "strict": true,
+    "typeRoots": ["./node_modules/@figma", "./node_modules/@types"],
     "outDir": "dist",
+    "skipLibCheck": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["code.ts"],
+  "exclude": ["node_modules", "api"]
 } 

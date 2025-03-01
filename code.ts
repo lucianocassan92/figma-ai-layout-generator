@@ -1,7 +1,6 @@
-import OpenAI from 'openai';
+/// <reference types="@figma/plugin-typings" />
 
-// Internal API key and rate limiting configuration
-const INTERNAL_API_KEY = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+// Rate limiting configuration
 const MAX_REQUESTS_PER_HOUR = 100;
 const REQUEST_TIMESTAMPS: number[] = [];
 
@@ -25,8 +24,7 @@ class AILayoutGenerator {
   private designSystem: Map<string, ComponentNode>;
 
   constructor() {
-    // Replace with your deployed server URL
-    this.apiUrl = 'https://your-proxy-server.com/analyze-prd';
+    this.apiUrl = 'https://figma-ai-layout-generator-server-etd977a73.vercel.app/analyze-prd';
     this.designSystem = new Map();
   }
 
@@ -51,6 +49,9 @@ class AILayoutGenerator {
 
   async analyzePRD(prd: string): Promise<LayoutResponse> {
     try {
+      // Check rate limit before making the request
+      this.checkRateLimit();
+
       const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
