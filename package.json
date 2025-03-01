@@ -1,0 +1,21 @@
+{
+  "name": "ai-layout-generator",
+  "version": "1.0.0",
+  "description": "AI-powered layout generator for Figma",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch"
+  },
+  "keywords": ["figma", "plugin", "ai", "layout", "generator"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.82.0",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0"
+  },
+  "dependencies": {
+    "openai": "^4.28.0"
+  }
+} 

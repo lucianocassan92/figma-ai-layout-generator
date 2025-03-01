@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #000;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 12px;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    textarea:focus {
+      border-color: #18A0FB;
+      outline: none;
+    }
+
+    button {
+      background: #18A0FB;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-weight: 500;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background: #0D8EE3;
+    }
+
+    button:disabled {
+      background: #E5E5E5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .status.error {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .status.success {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    .example {
+      margin-top: 16px;
+      padding: 12px;
+      background: #F9FAFB;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .example pre {
+      margin: 8px 0 0;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>AI Layout Generator</h2>
+    
+    <div class="input-group">
+      <label for="prd">Enter your PRD or requirements:</label>
+      <textarea id="prd" placeholder="Example: A contacts page with a search bar at the top, followed by a list of contacts below. Include filters on the left side."></textarea>
+    </div>
+
+    <button id="generate">Generate Layout</button>
+
+    <div id="status" class="status" style="display: none;"></div>
+
+    <div class="example">
+      <strong>Example PRD:</strong>
+      <pre>A dashboard layout with:
+- Header with user profile
+- Sidebar navigation
+- Main content area with:
+  - Statistics cards in a grid
+  - Recent activity list
+- Footer with copyright</pre>
+    </div>
+  </div>
+
+  <script>
+    let generating = false;
+
+    document.getElementById('generate').onclick = async () => {
+      const button = document.getElementById('generate');
+      const status = document.getElementById('status');
+      const prd = document.getElementById('prd').value;
+
+      if (generating) return;
+
+      try {
+        button.disabled = true;
+        generating = true;
+        button.textContent = 'Generating...';
+        status.style.display = 'none';
+
+        parent.postMessage({ 
+          pluginMessage: { 
+            type: 'generate-layout',
+            prd
+          }
+        }, '*');
+      } catch (error) {
+        showStatus('error', error.message);
+      }
+    };
+
+    // Listen for messages from the plugin code
+    window.onmessage = async (event) => {
+      const message = event.data.pluginMessage;
+      const button = document.getElementById('generate');
+
+      if (message.type === 'error' || message.type === 'success') {
+        showStatus(message.type, message.message);
+        button.disabled = false;
+        generating = false;
+        button.textContent = 'Generate Layout';
+      }
+    };
+
+    function showStatus(type, message) {
+      const status = document.getElementById('status');
+      status.className = `status ${type}`;
+      status.textContent = message;
+      status.style.display = 'block';
+    }
+  </script>
+</body>
+</html> 
